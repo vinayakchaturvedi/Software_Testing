@@ -40,6 +40,13 @@ public class CustomerOperationServiceImplTest {
      * 0,1,2,3,4,6,7
      * 0,1,3,4,5,7
      * 0,1,3,4,6,7
+     * <p>
+     *
+     * 4 Edge Paths
+     * 0,1,2,3,4,5,7
+     * 0,1,2,3,4,6,7
+     * 0,1,3,4,5,7
+     * 0,1,3,4,6,7
      */
     @Test
     public void testPath1() {
@@ -70,6 +77,7 @@ public class CustomerOperationServiceImplTest {
 
         Assert.assertNotNull(customer);
     }
+
     @Test
     public void testPath3() {
         //0,1,3,4,5,7
@@ -83,6 +91,7 @@ public class CustomerOperationServiceImplTest {
 
         Assert.assertNull(customer);
     }
+
     @Test
     public void testPath4() {
         //0,1,3,4,6,7

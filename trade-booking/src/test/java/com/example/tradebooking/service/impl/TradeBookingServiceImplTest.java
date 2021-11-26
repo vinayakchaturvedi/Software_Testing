@@ -58,7 +58,7 @@ public class TradeBookingServiceImplTest {
         //[1,2,3,4,6,7,8,10,14,15,16,17]
 
         Customer customer = new Customer();
-        customer.setCustomerName("Mehak");
+        customer.setCustomerName("Vinayak");
         Stock stock = new Stock();
         stock.setStockName("MSFT");
         stock.setTotalAvailableQuantity(200L);

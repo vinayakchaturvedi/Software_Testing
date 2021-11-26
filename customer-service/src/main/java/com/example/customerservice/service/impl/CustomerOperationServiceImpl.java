@@ -40,9 +40,14 @@ public class CustomerOperationServiceImpl implements Service {
 
     @Override
     public Customer validateAndRetrieveCustomer(Customer customer, boolean requiredPassword) {
-        if (customer.getEmailId() == null || customer.getEmailId().isEmpty()) return null;
-        if (requiredPassword && (customer.getPassword() == null || customer.getPassword().isEmpty()))
+        //1
+        if (customer.getEmailId() == null || customer.getEmailId().isEmpty())    //2
             return null;
+
+        //3
+        if (requiredPassword && (customer.getPassword() == null || customer.getPassword().isEmpty()))  //4
+            return null;
+        //5
         return dao.validateAndRetrieveCustomer(customer, requiredPassword);
     }
 }

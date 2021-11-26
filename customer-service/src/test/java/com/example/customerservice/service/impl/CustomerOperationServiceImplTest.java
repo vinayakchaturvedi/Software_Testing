@@ -34,26 +34,6 @@ public class CustomerOperationServiceImplTest {
         Assert.assertEquals(new Long(2L), customer.getTradingAccount());
     }
 
-    @Test
-    public void validateAndRetrieveCustomerValid() {
-        Customer customer = new Customer();
-        customer.setEmailId("abc@gmail.com");
-        customer.setPassword("root");
-        when(customerOperationDAO.validateAndRetrieveCustomer(any(Customer.class), eq(true))).thenReturn(customer);
-        Customer response = customerOperationService.validateAndRetrieveCustomer(customer, true);
-        Assert.assertNotNull(response);
-    }
-
-    @Test
-    public void validateAndRetrieveCustomerInValid() {
-        Customer customer = new Customer();
-        customer.setEmailId("abc@gmail.com");
-        customer.setPassword("");
-        when(customerOperationDAO.validateAndRetrieveCustomer(any(Customer.class), eq(true))).thenReturn(customer);
-        Customer response = customerOperationService.validateAndRetrieveCustomer(customer, true);
-        Assert.assertNull(response);
-    }
-
 
     /**
      * 4 prime paths
@@ -76,4 +56,52 @@ public class CustomerOperationServiceImplTest {
         Assert.assertNotNull(customer);
         Assert.assertEquals(Long.valueOf(1), customer.getTradingAccount());
     }
+
+
+    /**
+     * Validate and Retrieve Customer
+     * <p>
+     * 3 Prime Paths
+     * [0,1,3,4,6]
+     * [0,1,3,5,6]
+     * [0,1,2,6]
+     */
+
+    @Test
+    public void validateAndRetrieveCustomerPath1() {
+        //[0,1,3,4,6]
+
+        Customer customer = new Customer();
+        customer.setEmailId("abc@gmail.com");
+        customer.setPassword("");
+
+        Customer response = customerOperationService.validateAndRetrieveCustomer(customer, true);
+        Assert.assertNull(response);
+    }
+
+    @Test
+    public void validateAndRetrieveCustomerPath2() {
+        //[0,1,3,5,6]
+
+        Customer customer = new Customer();
+        customer.setEmailId("abc@gmail.com");
+        customer.setPassword("abcd");
+
+        when(customerOperationDAO.validateAndRetrieveCustomer(any(Customer.class), eq(true))).thenReturn(customer);
+        Customer response = customerOperationService.validateAndRetrieveCustomer(customer, true);
+        Assert.assertNotNull(response);
+    }
+
+    @Test
+    public void validateAndRetrieveCustomerPath3() {
+        //[0,1,2,6]
+
+        Customer customer = new Customer();
+        customer.setEmailId(null);
+        customer.setPassword("abcd");
+
+        Customer response = customerOperationService.validateAndRetrieveCustomer(customer, true);
+        Assert.assertNull(response);
+    }
+
 }

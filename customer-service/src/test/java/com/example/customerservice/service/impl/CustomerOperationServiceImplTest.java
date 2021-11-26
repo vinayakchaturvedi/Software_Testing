@@ -40,15 +40,9 @@ public class CustomerOperationServiceImplTest {
      * 0,1,2,3,4,6,7
      * 0,1,3,4,5,7
      * 0,1,3,4,6,7
-     * <p>
-     *
-     * 4 Edge Paths
-     * 0,1,2,3,4,5,7
-     * 0,1,2,3,4,6,7
-     * 0,1,3,4,5,7
-     * 0,1,3,4,6,7
      */
     @Test
+
     public void testPath1() {
         //0,1,2,3,4,5,7
         CustomerOperationServiceImpl.latestTradingAccount = null;

@@ -49,12 +49,53 @@ public class CustomerOperationServiceImplTest {
         mehak.setCustomerName("Mehak");
 
         when(customerOperationDAO.getLastTradingAccount()).thenReturn(0L);
+        when(customerOperationDAO.registerCustomer(eq(mehak))).thenReturn(false);
+
+        Customer customer = customerOperationService.registerCustomer(mehak);
+
+        Assert.assertNull(customer);
+    }
+
+    @Test
+    public void testPath2() {
+        //0,1,2,3,4,6,7
+        CustomerOperationServiceImpl.latestTradingAccount = null;
+        Customer mehak = new Customer();
+//        mehak.setCustomerName(null);
+
+        when(customerOperationDAO.getLastTradingAccount()).thenReturn(3L);
         when(customerOperationDAO.registerCustomer(eq(mehak))).thenReturn(true);
 
         Customer customer = customerOperationService.registerCustomer(mehak);
 
         Assert.assertNotNull(customer);
-        Assert.assertEquals(Long.valueOf(1), customer.getTradingAccount());
+    }
+    @Test
+    public void testPath3() {
+        //0,1,3,4,5,7
+        CustomerOperationServiceImpl.latestTradingAccount = 5L;
+        Customer mehak = new Customer();
+        mehak.setCustomerName("Mehak");
+
+        when(customerOperationDAO.registerCustomer(eq(mehak))).thenReturn(false);
+
+        Customer customer = customerOperationService.registerCustomer(mehak);
+
+        Assert.assertNull(customer);
+    }
+    @Test
+    public void testPath4() {
+        //0,1,3,4,6,7
+        CustomerOperationServiceImpl.latestTradingAccount = 10L;
+        Customer mehak = new Customer();
+        mehak.setCustomerName("Mehak");
+
+        when(customerOperationDAO.getLastTradingAccount()).thenReturn(0L);
+        when(customerOperationDAO.registerCustomer(eq(mehak))).thenReturn(true);
+
+        Customer customer = customerOperationService.registerCustomer(mehak);
+
+        Assert.assertNotNull(customer);
     }
 
 
